@@ -11,9 +11,11 @@ def make_list(s):
     s = re.sub(r'[^\d|^(]x', ' 1x', s)
     fn_list = list(str.split(s))
 
-    # Function could have no '1' or '-1' at the beginning
+    #TODO: Make it work
+    # Function could have no '1' or '-1' at the beginning (and it's a problem)
     for fn in fn_list:
-        print()
+        if re.search(r'^x', fn) or re.search(r'^-[a-z]', fn):
+            print(fn)
         if re.search(r'^-[^\d]', fn):
             fn = re.sub('^-', '-1', fn)
         elif re.search('^[a-z]', fn):
@@ -66,6 +68,7 @@ def make_lambda(fn):
         return lambda x: float(a) * (float(x) ** float(p))
 
 
+# TODO: Make it work
 def is_polymonial(fn_list: list):
     for fn in fn_list:
         if not re.match(r"\^\d+", fn) and not re.match(r"x", fn):
@@ -78,6 +81,7 @@ class Function:
 
     # Divide string into list and transform into lambdas
     def __init__(self, s: str):
+        # Rn it doesn't care if it's polymonial (but it should)
         fn_list = make_list(s)
         for fn in fn_list:
             self.funcs.append(make_lambda(fn))
