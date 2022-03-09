@@ -32,8 +32,7 @@ def plot(fun: Function, range_: (float, float)):
 
 
 if __name__ == '__main__':
-    pn1 = Function("2 1 -5.4 -18")
-    plot(pn1, (2, 5))
-
-
-
+    # pn1 = Function("2x^3-x^2-5.4x - 18")
+    # plot(pn1, (2, 5))
+    pn2 = Function("1x^2+2x+1")
+    print(pn2.value(2))
