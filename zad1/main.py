@@ -2,7 +2,6 @@ import bisection
 import matplotlib.pyplot as plt
 import numpy as np
 from Function import *
-
 # 03B
 
 
@@ -39,6 +38,7 @@ Zasady wpisywania:
     - dostępne są funkcje trygonometryczne sin, cos i tan oraz stałe e, pi
     - argumentem funkcji trygonometrycznej może być tylko x
     - by skorzystać z funkcji należy wpisać jej nazwę, np. 3sin [co oznacza 3 * sin(x)]
+    - funkcje trygonometryczne działają na x podanym w radianach
     - brak obsługi nawiasów ani znaku modułu |
     - obsługiwane są tylko potęgi naturalne
     - brak obsługi dzielenia
@@ -55,7 +55,11 @@ Przykłady poprawnych czynników
     0.4x^2
     15 sin
 """)
-    s = "5x^3 - 5.8sin*x^3 + cos^3*x^2"
+    # x = 1/2*np.pi
+    # s = "5x^3 - 5.8sin*x^3 + cos^3*x^2"  # błąd
+    # s = "5x^3 - 5.8sin*x^3"
+    # s = "sin + 5sin^2*x^2"  # 13.33700, ok
+    s = "3 + 2 + 4"
     print(s)
-    pn2 = Function(s)
-    print("value:", pn2.value(2))
+    f = Function(s)
+    print("value:", f.value(1/2*np.pi))

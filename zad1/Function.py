@@ -7,17 +7,16 @@ class Function:
 
     # Divide string into list and transform into lambdas
     def __init__(self, s: str):
-        fn_list = make_list(s)
         # sorted list where:
         #   3x^3 -> fn_list[3] == "3x"
         #   2 -> fn_list[0] == "2"
         #   3x + 5x -> fn_list[1] == "3x 5x"
         #   5sin^3*x^2 -> fn_list[2] == "5sin^3"
-        print("Function, fn_list:", fn_list)
+        fn_list = make_list(s)
 
-        for idx, fn in enumerate(fn_list):
-            # self.funcs.append(make_lambda(fn))
-            self.funcs.append(alt_make_lambda(fn))
+        print("Function, fn_list:", fn_list)
+        for fn in fn_list:
+            self.funcs.append(make_lambda(fn))
         self.funcs.reverse()
 
     def value(self, x: float):
@@ -80,7 +79,7 @@ def make_list(s):
     return fn_list_new
 
 
-def alt_make_lambda(fns: str):
+def make_lambda(fns: str):
     if fns == "":
         return lambda x: 0
     fn_list = fns.split(' ')
@@ -89,9 +88,12 @@ def alt_make_lambda(fns: str):
         a = float(re.findall(r'^-?\d+\.?\d*', elem)[0])
         rest = re.search(r'[^\d\.]+.*$', elem)
         if rest is None:
-            lambdas.append(lambda x: a)
+            print("rest_s: none, a:", a)
+            def lbd(x): return a
+            lambdas.append(lbd)
         else:
             rest_s = rest.group(0)
+            print("rest_s:", rest_s)
             parts = rest_s.split('^')
             part0lbd = lambda x: 0
             if parts[0] == "sin":
@@ -111,61 +113,16 @@ def alt_make_lambda(fns: str):
                 # def part0lbd(x): return np.e
 
             if len(parts) == 1:
-                lambdas.append(lambda x: a * part0lbd(x))
+                def lbd(x): return a * part0lbd(x)
+                lambdas.append(lbd)
             elif len(parts) == 2:
                 if parts[1] == "x":
-                    lambdas.append(lambda x: a * part0lbd(x) ** x)
+                    def lbd(x): return a * part0lbd(x) ** x
+                    lambdas.append(lbd)
                 else:
                     b = int(parts[1])
-                    lambdas.append(lambda x: a * part0lbd(x) ** b)
-    return lambda y: sum(f(y) for f in lambdas)
-
-
-def make_lambda(fn):
-    # Trigonometry
-    if re.search('sin', fn):
-        # print("sinus: ", fn)
-        a = re.sub(r'sin\(x\)', '', fn)
-        return lambda x: float(a) * np.sin(x)
-    elif re.search('cos', fn):
-        # print("cosinus: ", fn)
-        a = re.sub(r'cos\(x\)', '', fn)
-        return lambda x: float(a) * np.cos(x)
-    elif re.search('tan', fn):
-        # print("tangens: ", fn)
-        a = re.sub(r'tan\(x\)', '', fn)
-        return lambda x: float(a) * np.tan(x)
-
-    # e^x
-    elif re.search(r'e\^x', fn):
-        # print("e do x:", fn)
-        a = re.sub(r'e\^x', '', fn)
-        return lambda x: float(a) * np.exp(x)
-
-    # Constant
-    elif not re.search(r'x', fn):
-        # print("stala: ", fn)
-        return lambda x: float(fn)
-
-    # ax^p
-    elif re.search(r"x\^?\d+?|(\(-\d+\))?$", fn):
-        print("jedn: ", fn)
-        a = re.sub('x', '', fn)
-        p = a
-        a = re.sub(r'\^-?(\d+|\(-?\d+\))$', '', a)
-        print("mian: ", a)
-        p = re.sub(a, '', p)
-        p = re.sub(r'\^\(?', '', p)
-        p = re.sub(r'\)?', '', p)
-        if p == '':
-            p = '1'
-        print("pow:", p)
-        print(a, "x", p)
-        return lambda x: float(a) * (float(x) ** float(p))
-
-# TODO: Make it work -- no
-# def is_polymonial(fn_list: list):
-#     for fn in fn_list:
-#         if not re.match(r"\^\d+", fn) and not re.match(r"x", fn):
-#             return False
-#     return True
+                    def lbd(x): return a * part0lbd(x) ** b
+                    lambdas.append(lbd)
+    for l in lambdas:
+        print(l(2))
+    return lambda x: sum(f(x) for f in lambdas)
