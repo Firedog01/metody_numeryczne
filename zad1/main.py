@@ -32,7 +32,30 @@ def plot(fun: Function, range_: (float, float)):
 
 
 if __name__ == '__main__':
-    # pn1 = Function("2x^3-x^2-5.4x - 18")
-    # plot(pn1, (2, 5))
-    pn2 = Function("1x^2+2x+1")
-    print(pn2.value(2))
+    print("""
+Zasady wpisywania: 
+    - obsługiwana jest postać wielomianowa równania
+    - wpisany element musi spełniać schemat: 
+    - dostępne są funkcje trygonometryczne sin, cos i tan oraz stałe e, pi
+    - argumentem funkcji trygonometrycznej może być tylko x
+    - by skorzystać z funkcji należy wpisać jej nazwę, np. 3sin [co oznacza 3 * sin(x)]
+    - brak obsługi nawiasów ani znaku modułu |
+    - obsługiwane są tylko potęgi naturalne
+    - brak obsługi dzielenia
+    - nie wstawiać znaku '*' pomiędzy współczynnikiem a funkcją/stałą
+    - spacje są ignorowane
+    
+Schemat postaci wpisywanego czynnika:
+    (współczynnik) (funkcja/stała (^ potęga/x) *) x (^ potęga) 
+lub (współczynnik) [funkcja/stała] (^ potęga/x)
+    [] - część wymagana
+    () - część opcjonalna
+Przykłady poprawnych czynników
+    -1 sin^2 * x^3
+    0.4x^2
+    15 sin
+""")
+    s = "5x^3 - 5.8sin*x^3 + cos^3*x^2"
+    print(s)
+    pn2 = Function(s)
+    print("value:", pn2.value(2))
