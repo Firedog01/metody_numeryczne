@@ -64,6 +64,8 @@ def make_list(s):
         before = fn.split('x^')[0]
         if before[-1] == "*":
             before = before[:len(before) - 1]
+        if re.search("\*x$", before):
+            before = before[:len(before) - 2]
 
         if pow_key in fn_dict:
             fn_dict[pow_key] += ' ' + before
@@ -89,40 +91,33 @@ def make_lambda(fns: str):
         rest = re.search(r'[^\d\.]+.*$', elem)
         if rest is None:
             print("rest_s: none, a:", a)
-            def lbd(x): return a
-            lambdas.append(lbd)
+            lambdas.append(lambda x: a)
         else:
             rest_s = rest.group(0)
-            print("rest_s:", rest_s)
+            print("rest_s:", rest_s, "a:", a)
             parts = rest_s.split('^')
             part0lbd = lambda x: 0
             if parts[0] == "sin":
                 part0lbd = lambda x: np.sin(x)
-                # def part0lbd(x): return np.sin(x)
             elif parts[0] == "cos":
                 part0lbd = lambda x: np.cos(x)
-                # def part0lbd(x): return np.cos(x)
             elif parts[0] == "tan":
                 part0lbd = lambda x: np.tan(x)
-                # def part0lbd(x): return np.tan(x)
             elif parts[0] == "pi":
                 part0lbd = lambda x: np.pi
-                # def part0lbd(x): return np.pi
             elif parts[0] == "e":
                 part0lbd = lambda x: np.e
-                # def part0lbd(x): return np.e
+            elif parts[0] == "x":
+                part0lbd = lambda x: x
 
             if len(parts) == 1:
-                def lbd(x): return a * part0lbd(x)
-                lambdas.append(lbd)
+                lambdas.append(lambda x: a * part0lbd(x))
             elif len(parts) == 2:
                 if parts[1] == "x":
-                    def lbd(x): return a * part0lbd(x) ** x
-                    lambdas.append(lbd)
+                    lambdas.append(lambda x: a * part0lbd(x) ** x)
                 else:
                     b = int(parts[1])
-                    def lbd(x): return a * part0lbd(x) ** b
-                    lambdas.append(lbd)
+                    lambdas.append(lambda x: a * part0lbd(x) ** b)
     for l in lambdas:
-        print(l(2))
+        print(l, l(2))
     return lambda x: sum(f(x) for f in lambdas)

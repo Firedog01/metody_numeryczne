@@ -59,7 +59,7 @@ Przykłady poprawnych czynników
     # s = "5x^3 - 5.8sin*x^3 + cos^3*x^2"  # błąd
     # s = "5x^3 - 5.8sin*x^3"
     # s = "sin + 5sin^2*x^2"  # 13.33700, ok
-    s = "3 + 2 + 4"
+    s = "3x + 2sin*x + 4cos*x"
     print(s)
     f = Function(s)
-    print("value:", f.value(1/2*np.pi))
+    print("value:", f.value(1))
