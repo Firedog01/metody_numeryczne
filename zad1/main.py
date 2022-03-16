@@ -98,10 +98,11 @@ if __name__ == '__main__':
         elif "e" in i:
             n = int(i[1:])
             f = examples[n][0]
-            p = examples[n][1]
+            r = examples[n][1]
         elif i == "c":
             f = input("podaj funkcję: ")
-            p = tuple(input("podaj przedział w postaci (x, y): "))
+            p, q = input("podaj przedział w postaci x y: ").split()
+            r = (int(p), int(q))
         elif i == "q":
             pass
         else:
@@ -110,7 +111,6 @@ if __name__ == '__main__':
         if f != "":
             print(f)
             fn = Function(f)
-            plot(fn, p)
-            print("----------value------------")
+            plot(fn, r)
             print("f(2) =", fn.value(2))
             del fn

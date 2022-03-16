@@ -14,15 +14,15 @@ class Function:
         #   5sin^3*x^2 -> fn_list[2] == "5sin^3"
         fn_list = make_list(s)
 
-        print("Function, fn_list:", fn_list)
+        # print("Function, fn_list:", fn_list)
         for fn in fn_list:
             fn_addlist = list()
             split = fn.split(' ')
             for s in split:
-                print("split, s:", s)
+                # print("split, s:", s)
                 fn_addlist.append(make_lambda(s))
-            for f in fn_addlist:
-                print("fn_addlist, f(1) =", f(1))
+            # for f in fn_addlist:
+                # print("fn_addlist, f(1) =", f(1))
             self.funcs.append(fn_addlist)
         # print("funcs len", len(self.funcs))
         self.funcs.reverse()
@@ -33,15 +33,15 @@ class Function:
     def value(self, x: float):
         ret = 0
         for f in self.funcs[0]:
-            print("a(x) =", f(x))
+            # print("a(x) =", f(x))
             ret += f(x)
         for fn in self.funcs[1:]:
-            print("-- ret:", ret)
+            # print("-- ret:", ret)
             ret *= x
             for f in fn:
-                print("a(x) =", f(x))
+                # print("a(x) =", f(x))
                 ret += f(x)
-            print("ret*x + a", ret)
+            # print("ret*x + a", ret)
         return ret
 
 
@@ -72,7 +72,7 @@ def make_list(s):
     # same for functions and constants
 
     fn_list = list(str.split(s, ' '))
-    print("make_list, fn_list:", fn_list)
+    # print("make_list, fn_list:", fn_list)
     fn_dict = dict()
     for fn in fn_list:
         if re.search(r'x\^', fn):
@@ -105,14 +105,12 @@ def make_lambda(fn: str):
         return lambda x: 0
     a = float(re.findall(r'^-?\d+\.?\d*', fn)[0])
     rest = re.search(r'[^\d\.-]+.*$', fn)
-    # print("a:", a, "rest:", rest)
     if rest is None:
         return lambda x: a
     else:
         rest_s = rest.group(0)
         parts = rest_s.split('^')
         b = 1
-        print("parts:", parts)
         if len(parts) == 2:
             if parts[1] == "x":
                 if parts[0] == "sin":
@@ -144,7 +142,6 @@ def make_lambda(fn: str):
                 elif parts[0] == "x":  # ???
                     return lambda x: a * x ** b
         else:
-            print("part 0:", parts[0])
             if parts[0] == "sin":
                 return lambda x: a * np.sin(x)
             elif parts[0] == "cos":
