@@ -1,4 +1,4 @@
-import bisection
+# import bisection
 import matplotlib.pyplot as plt
 import numpy as np
 from Function import Function
@@ -109,7 +109,7 @@ if __name__ == '__main__':
         if f != "":
             print(f)
             fn = Function(f)
-            plot(fn, p)
+            # plot(fn, p)
             print("f(1) =", fn.value(1))
 
 

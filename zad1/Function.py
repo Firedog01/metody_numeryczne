@@ -19,16 +19,21 @@ class Function:
             fn_addlist = list()
             split = fn.split(' ')
             for s in split:
+                print("split, s:", s)
                 fn_addlist.append(make_lambda(s))
+            for f in fn_addlist:
+                print("fn_addlist, f(1) =", f(1))
             self.funcs.append(fn_addlist)
         self.funcs.reverse()
 
     def value(self, x: float):
         ret = 0
         for fn in self.funcs:
-            ret *= x
+            print("--")
             for f in fn:
+                print("a(x) =", f(x))
                 ret += f(x)
+            ret *= x
         return ret
 
 
@@ -91,31 +96,55 @@ def make_lambda(fn: str):
     if fn == "":
         return lambda x: 0
     a = float(re.findall(r'^-?\d+\.?\d*', fn)[0])
-    rest = re.search(r'[^\d\.]+.*$', fn)
+    rest = re.search(r'[^\d\.-]+.*$', fn)
+    print("a:", a, "rest:", rest)
     if rest is None:
         return lambda x: a
     else:
         rest_s = rest.group(0)
         parts = rest_s.split('^')
-        part0lbd = lambda x: 0
-        if parts[0] == "sin":
-            part0lbd = lambda x: np.sin(x)
-        elif parts[0] == "cos":
-            part0lbd = lambda x: np.cos(x)
-        elif parts[0] == "tan":
-            part0lbd = lambda x: np.tan(x)
-        elif parts[0] == "pi":
-            part0lbd = lambda x: np.pi
-        elif parts[0] == "e":
-            part0lbd = lambda x: np.e
-        elif parts[0] == "x":
-            part0lbd = lambda x: x
-
-        if len(parts) == 1:
-            return lambda x: a * part0lbd(x)
-        elif len(parts) == 2:
+        b = 1
+        print("parts:", parts)
+        if len(parts) == 2:
             if parts[1] == "x":
-                return lambda x: a * part0lbd(x) ** x
+                if parts[0] == "sin":
+                    return lambda x: a * np.sin(x) ** x
+                elif parts[0] == "cos":
+                    return lambda x: a * np.cos(x) ** x
+                elif parts[0] == "tan":
+                    return lambda x: a * np.tan(x) ** x
+                elif parts[0] == "pi":
+                    return lambda x: a * np.pi ** x
+                elif parts[0] == "e":
+                    return lambda x: a * np.e ** x
+                elif parts[0] == "x":  # ???
+                    return lambda x: a * x ** x
             else:
                 b = int(parts[1])
-                return lambda x: a * part0lbd(x) ** b
+                if parts[0] == "sin":
+                    return lambda x: a * np.sin(x) ** b
+                elif parts[0] == "cos":
+                    return lambda x: a * np.cos(x) ** b
+                elif parts[0] == "tan":
+                    return lambda x: a * np.tan(x) ** b
+                elif parts[0] == "pi":
+                    return lambda x: a * np.pi ** b
+                elif parts[0] == "e":
+                    return lambda x: a * np.e ** b
+                elif parts[0] == "x":  # ???
+                    return lambda x: a * x ** b
+        else:
+            print("part 0:", parts[0])
+            if parts[0] == "sin":
+                return lambda x: a * np.sin(x)
+            elif parts[0] == "cos":
+                return lambda x: a * np.cos(x)
+            elif parts[0] == "tan":
+                return lambda x: a * np.tan(x)
+            elif parts[0] == "pi":
+                return lambda x: a * np.pi
+            elif parts[0] == "e":
+                return lambda x: a * np.e
+            elif parts[0] == "x":  # ???
+                return lambda x: a * x
+    print("lambda not returned!")
