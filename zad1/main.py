@@ -13,7 +13,8 @@ examples = [
     ("2+cos", (-10, 10)),
     ("sin-cos", (-10, 10)),
     ("5x^3 - 5.8sin*x^3 + cos^3*x^2", (-0.5, 1.1)),
-    ("5.8sin*x^3 + cos^3*x^2", (-0.5, 1.1))
+    ("5.8sin*x^3 + cos^3*x^2", (-0.5, 1.1)),
+    ("2x", (-1, 1))
 ]
 
 
@@ -53,7 +54,7 @@ def print_examples():
     i = 0
     for e in examples:
         print("[", i, "]", "f(x) =", e[0], "przedział:", e[1])
-        i -=- 1
+        i += 1
 
 
 def plot(fun: Function, range_: (float, float)):
@@ -109,8 +110,7 @@ if __name__ == '__main__':
         if f != "":
             print(f)
             fn = Function(f)
-            # plot(fn, p)
-            print("f(1) =", fn.value(1))
-
-
-
+            plot(fn, p)
+            print("----------value------------")
+            print("f(2) =", fn.value(2))
+            del fn

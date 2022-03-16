@@ -24,16 +24,24 @@ class Function:
             for f in fn_addlist:
                 print("fn_addlist, f(1) =", f(1))
             self.funcs.append(fn_addlist)
+        # print("funcs len", len(self.funcs))
         self.funcs.reverse()
+
+    def __del__(self):
+        self.funcs.clear()
 
     def value(self, x: float):
         ret = 0
-        for fn in self.funcs:
-            print("--")
+        for f in self.funcs[0]:
+            print("a(x) =", f(x))
+            ret += f(x)
+        for fn in self.funcs[1:]:
+            print("-- ret:", ret)
+            ret *= x
             for f in fn:
                 print("a(x) =", f(x))
                 ret += f(x)
-            ret *= x
+            print("ret*x + a", ret)
         return ret
 
 
@@ -97,7 +105,7 @@ def make_lambda(fn: str):
         return lambda x: 0
     a = float(re.findall(r'^-?\d+\.?\d*', fn)[0])
     rest = re.search(r'[^\d\.-]+.*$', fn)
-    print("a:", a, "rest:", rest)
+    # print("a:", a, "rest:", rest)
     if rest is None:
         return lambda x: a
     else:
@@ -119,6 +127,8 @@ def make_lambda(fn: str):
                     return lambda x: a * np.e ** x
                 elif parts[0] == "x":  # ???
                     return lambda x: a * x ** x
+                elif parts[0] == "":
+                    return lambda x: a ** x
             else:
                 b = int(parts[1])
                 if parts[0] == "sin":
@@ -147,4 +157,3 @@ def make_lambda(fn: str):
                 return lambda x: a * np.e
             elif parts[0] == "x":  # ???
                 return lambda x: a * x
-    print("lambda not returned!")
