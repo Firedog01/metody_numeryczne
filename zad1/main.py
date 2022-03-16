@@ -1,7 +1,9 @@
-# import bisection
+
 import matplotlib.pyplot as plt
 import numpy as np
 from Function import Function
+from bisection import bisection
+from falsi import falsi
 # 03B
 examples = [
     ("x", (-5, 5)),
@@ -83,10 +85,10 @@ def plot(fun: Function, range_: (float, float)):
 
 
 if __name__ == '__main__':
-    # x = 1/2*np.pi
-    # s = "5x^3 - 5.8sin*x^3 + cos^3*x^2"  # błąd
-    # s = "5x^3 - 5.8sin*x^3"
-    # s = "sin + 5sin^2*x^2"  # 13.33700, ok
+    # todo
+    #  - przedziały z pi
+    #  - aproksymacja
+    #  - miejsca znaczące
     i = ""
     while i != "q":
         i = input("wprowadź parametr, h by uzyskać pomoc: ")
@@ -102,7 +104,7 @@ if __name__ == '__main__':
         elif i == "c":
             f = input("podaj funkcję: ")
             p, q = input("podaj przedział w postaci x y: ").split()
-            r = (int(p), int(q))
+            r = (float(p), float(q))
         elif i == "q":
             pass
         else:
