@@ -10,7 +10,7 @@ def test(f_str, a, b, mode=0, epsilon=0.1, iterations=10):
         print("epsilon =", epsilon)
     else:
         print("iterations =", iterations)
-    f = Function("x^3+x^2-x")
+    f = Function(f_str)
     x0bi, ibi = bisection(f, a, b, mode, epsilon, iterations)
     x0falsi, ifalsi = falsi(f, a, b, mode, epsilon, iterations)
     print("bisection:", x0bi, ibi)
