@@ -1,5 +1,6 @@
 # Function returns x0 and iterations
 # 0 - epsilon, 1 - iterations
+# todo: Podejrzanie słabo działa ta metoda
 def falsi(f, a: float, b: float, mode=0, epsilon=0.1, iterations=10):
     i = 0
     while i * mode < iterations:
