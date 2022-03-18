@@ -5,6 +5,8 @@ from Function import Function
 from bisection import bisection
 from falsi import falsi
 # 03B
+from test import test_block
+
 examples = [
     ("x", (-5, 5)),
     ("x^3-x^2-2x+1", (-10, 10)),
@@ -83,6 +85,31 @@ def plot(fun: Function, range_: (float, float)):
     plt.plot(x_points, y_points)
     plt.show()
 
+def set_parameters():
+    algo = input("wybierz algorytm (b - bisekcja, f - falsi, t - testuj algorytmy): ")
+    if algo == "t":
+        return "t", "t", "t"
+    elif algo != "b" and algo != "f":
+        print("bledny parametr")
+        return "", "", ""
+
+    mode = input("wybierz warunek stopu (d - dokładność, i - iteracje): ")
+    if mode == "d":
+        mode = 0
+    elif mode == "i":
+        mode = 1
+    else:
+        print("bledny parametr")
+        return "", "", ""
+
+    limit = ""
+    if mode == 0:
+        limit = float(input("podaj dokładność obliczeń: "))
+    elif mode == 1:
+        limit = int(input("podaj ilość iteracji: "))
+    return algo, mode, limit
+
+
 
 if __name__ == '__main__':
     # todo
@@ -90,6 +117,7 @@ if __name__ == '__main__':
     #  - aproksymacja
     #  - miejsca znaczące
     i = ""
+    algo = ""
     while i != "q":
         i = input("wprowadź parametr, h by uzyskać pomoc: ")
         f = ""
@@ -101,18 +129,36 @@ if __name__ == '__main__':
             n = int(i[1:])
             f = examples[n][0]
             r = examples[n][1]
+            p, q = r
+            algo, mode, limit = set_parameters()
         elif i == "c":
             f = input("podaj funkcję: ")
             p, q = input("podaj przedział w postaci x y: ").split()
-            r = (float(p), float(q))
+            p = float(p)
+            q = float(q)
+            r = (p, q)
+            algo, mode, limit = set_parameters()
         elif i == "q":
             pass
         else:
             print("zly parametr")
 
-        if f != "":
-            print(f)
-            fn = Function(f)
-            plot(fn, r)
-            print("f(2) =", fn.value(2))
-            del fn
+        if f != "" and algo != "":
+            if algo != "t":
+                fn = Function(f)
+                if algo == "b" and not mode:
+                    x0, iters = bisection(fn, p, q, mode, epsilon=limit)
+                elif algo == "b" and mode:
+                    x0, iters = bisection(fn, p, q, mode, iterations=limit)
+                elif algo == "f" and not mode:
+                    x0, iters = falsi(fn, p, q, mode, epsilon=limit)
+                elif algo == "f" and mode:
+                    x0, iters = falsi(fn, p, q, mode, iterations=limit)
+
+                plot(fn, r)
+                print(f)
+                print("x0 =", x0)
+                print("iteracje:", iters)
+                del fn
+            else:
+                test_block(f, p, q)
