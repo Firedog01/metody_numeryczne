@@ -87,10 +87,8 @@ def plot(fun: Function, range_: (float, float), x0: float, y0:float):
 
 
 def set_parameters():
-    algo = input("Wybierz algorytm (b - bisekcja, f - regula falsi, t - testuj algorytmy): ")
-    if algo == "t":
-        return "t", "t", "t"
-    elif algo != "b" and algo != "f":
+    algo = input("Wybierz algorytm (b - bisekcja, f - regula falsi: ")
+    if algo != "b" and algo != "f":
         print("Bledny algorytm!")
         return "", "", ""
 
@@ -146,22 +144,20 @@ if __name__ == '__main__':
         if f != "" and algo != "":
             fn = Function(f)
             if fn.value(p) * fn.value(q) < 0:
-                if algo != "t":
-                    if algo == "b" and not mode:
-                        x0, iters = bisection(fn, p, q, mode, epsilon=limit)
-                    elif algo == "b" and mode:
-                        x0, iters = bisection(fn, p, q, mode, iterations=limit)
-                    elif algo == "f" and not mode:
-                        x0, iters = falsi(fn, p, q, mode, epsilon=limit)
-                    elif algo == "f" and mode:
-                        x0, iters = falsi(fn, p, q, mode, iterations=limit)
+                if algo == "b" and not mode:
+                    x0, iters = bisection(fn, p, q, mode, epsilon=limit)
+                elif algo == "b" and mode:
+                    x0, iters = bisection(fn, p, q, mode, iterations=limit)
+                elif algo == "f" and not mode:
+                    x0, iters = falsi(fn, p, q, mode, epsilon=limit)
+                elif algo == "f" and mode:
+                    x0, iters = falsi(fn, p, q, mode, iterations=limit)
 
-                    plot(fn, r, x0, fn.value(x0))
-                    print(f)
-                    print("x0 =", x0)
-                    print("iteracje:", iters)
-                else:
-                    test_block(f, p, q)
+                print("------------------------------------------------")
+                print("funkcja:", f, "a =", p, "b =", q)
+                print("x0:", x0, "iteracje:", iters)
+                print("------------------------------------------------")
+                plot(fn, r, x0, fn.value(x0))
             else:
                 print("Podano błędny zakres!")
             del fn
