@@ -1,4 +1,3 @@
-
 import matplotlib.pyplot as plt
 import numpy as np
 from Function import Function
@@ -8,16 +7,16 @@ from falsi import falsi
 from test import test_block
 
 examples = [
-    ("x", (-5, 5)),
+    ("x", (-50, 50)),
     ("x^3-x^2-2x+1", (-10, 10)),
-    ("2^x-3x", (-10, 10)),
-    ("3x+sin-e^x", (-10, 10)),
+    ("2^x-3x", (2, 10)),
+    ("3x+sin-e^x", (-1, 1)),
     ("x^3-x+1", (-10, 10)),
-    ("tan-1", (-10, 10)),
-    ("2+cos", (-10, 10)),
-    ("sin-cos", (-10, 10)),
-    ("5x^3 - 5.8sin*x^3 + cos^3*x^2", (-0.5, 1.1)),
-    ("5.8sin*x^3 + cos^3*x^2", (-0.5, 1.1)),
+    ("tan-1", (-1, 1.5)),
+    ("cos-2x", (-10, 10)),
+    ("cos-sin^2", (0, 4)),
+    ("5x^3 - 5.8sin*x^3 + cos^3*x^2", (1, 2)),
+    ("3sin*x^3 + cos^3*x^2", (1, 3.1)),
     ("2x", (-1, 1))
 ]
 
@@ -61,7 +60,7 @@ def print_examples():
         i += 1
 
 
-def plot(fun: Function, range_: (float, float)):
+def plot(fun: Function, range_: (float, float), x0: float, y0:float):
     plot_precision = 100.0
     fig = plt.figure()
 
@@ -82,33 +81,34 @@ def plot(fun: Function, range_: (float, float)):
     ax.spines['right'].set_color('none')
     ax.spines['top'].set_color('none')
 
-    plt.plot(x_points, y_points)
+    plt.plot(x_points, y_points, zorder=0)
+    plt.scatter(x0, y0, color='red', zorder=1)
     plt.show()
 
+
 def set_parameters():
-    algo = input("wybierz algorytm (b - bisekcja, f - falsi, t - testuj algorytmy): ")
+    algo = input("Wybierz algorytm (b - bisekcja, f - regula falsi, t - testuj algorytmy): ")
     if algo == "t":
         return "t", "t", "t"
     elif algo != "b" and algo != "f":
-        print("bledny parametr")
+        print("Bledny algorytm!")
         return "", "", ""
 
-    mode = input("wybierz warunek stopu (d - dokładność, i - iteracje): ")
+    mode = input("Wybierz warunek stopu (d - dokładność, i - iteracje): ")
     if mode == "d":
         mode = 0
     elif mode == "i":
         mode = 1
     else:
-        print("bledny parametr")
+        print("Blędny warunek!")
         return "", "", ""
 
     limit = ""
     if mode == 0:
-        limit = float(input("podaj dokładność obliczeń: "))
+        limit = float(input("Podaj dokładność obliczeń: "))
     elif mode == 1:
-        limit = int(input("podaj ilość iteracji: "))
+        limit = int(input("Podaj ilość iteracji: "))
     return algo, mode, limit
-
 
 
 if __name__ == '__main__':
@@ -119,7 +119,7 @@ if __name__ == '__main__':
     i = ""
     algo = ""
     while i != "q":
-        i = input("wprowadź parametr, h by uzyskać pomoc: ")
+        i = input("Wprowadź parametr, h by uzyskać pomoc: ")
         f = ""
         if i == "h":
             print_help()
@@ -132,8 +132,8 @@ if __name__ == '__main__':
             p, q = r
             algo, mode, limit = set_parameters()
         elif i == "c":
-            f = input("podaj funkcję: ")
-            p, q = input("podaj przedział w postaci x y: ").split()
+            f = input("Podaj funkcję: ")
+            p, q = input("Podaj przedział w postaci x y: ").split()
             p = float(p)
             q = float(q)
             r = (p, q)
@@ -141,24 +141,27 @@ if __name__ == '__main__':
         elif i == "q":
             pass
         else:
-            print("zly parametr")
+            print("Zly parametr!")
 
         if f != "" and algo != "":
-            if algo != "t":
-                fn = Function(f)
-                if algo == "b" and not mode:
-                    x0, iters = bisection(fn, p, q, mode, epsilon=limit)
-                elif algo == "b" and mode:
-                    x0, iters = bisection(fn, p, q, mode, iterations=limit)
-                elif algo == "f" and not mode:
-                    x0, iters = falsi(fn, p, q, mode, epsilon=limit)
-                elif algo == "f" and mode:
-                    x0, iters = falsi(fn, p, q, mode, iterations=limit)
+            fn = Function(f)
+            if fn.value(p) * fn.value(q) < 0:
+                if algo != "t":
+                    if algo == "b" and not mode:
+                        x0, iters = bisection(fn, p, q, mode, epsilon=limit)
+                    elif algo == "b" and mode:
+                        x0, iters = bisection(fn, p, q, mode, iterations=limit)
+                    elif algo == "f" and not mode:
+                        x0, iters = falsi(fn, p, q, mode, epsilon=limit)
+                    elif algo == "f" and mode:
+                        x0, iters = falsi(fn, p, q, mode, iterations=limit)
 
-                plot(fn, r)
-                print(f)
-                print("x0 =", x0)
-                print("iteracje:", iters)
-                del fn
+                    plot(fn, r, x0, fn.value(x0))
+                    print(f)
+                    print("x0 =", x0)
+                    print("iteracje:", iters)
+                else:
+                    test_block(f, p, q)
             else:
-                test_block(f, p, q)
+                print("Podano błędny zakres!")
+            del fn
