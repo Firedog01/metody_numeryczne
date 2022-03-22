@@ -4,7 +4,6 @@ from Function import Function
 from bisection import bisection
 from falsi import falsi
 # 03B
-from test import test_block
 
 examples = [
     ("x", (-50, 50)),
@@ -81,8 +80,8 @@ def plot(fun: Function, range_: (float, float), x0: float, y0:float):
     ax.spines['right'].set_color('none')
     ax.spines['top'].set_color('none')
 
-    plt.plot(x_points, y_points, zorder=0)
-    plt.scatter(x0, y0, color='red', zorder=1)
+    plt.plot(x_points, y_points, zorder=-1)
+    plt.scatter(x0, y0, color='red', zorder=10)
     plt.show()
 
 
