@@ -4,6 +4,17 @@ import numpy as np
 def gauss(A: np.array, b: np.array):
     if det(A) == 0 or A[0][0] == 0:
         return None
+    # For each column in matrix A, apart from last
+    for i in range(len(A)-1):
+        main_index = i
+        # Find main element in column
+        for j in range(i+1, len(A)):
+            if A[i][j] > A[i][main_index]:
+                main_index = j
+        main_element = A[i][main_element]
+
+        for j in range(i+1, len(A)):
+            pass # Do stuff in this column
 
 
 def det(A: np.array):
@@ -31,3 +42,4 @@ if __name__ == "__main__":
     print(a[2])
     print(a.shape)
     print(det(a))
+    print()
