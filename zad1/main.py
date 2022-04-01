@@ -86,7 +86,7 @@ def plot(fun: Function, range_: (float, float), x0: float, y0:float):
 
 
 def set_parameters():
-    algo = input("Wybierz algorytm (b - bisekcja, f - regula falsi: ")
+    algo = input("Wybierz algorytm (b - bisekcja, f - regula falsi): ")
     if algo != "b" and algo != "f":
         print("Bledny algorytm!")
         return "", "", ""

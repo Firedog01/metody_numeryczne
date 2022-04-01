@@ -10,10 +10,11 @@ def gauss(A: np.array, b: np.array):
         main_index = i
         # Find main element in column
         for j in range(i+1, len(A)):
-            if A[i][j] > A[i][main_index]:
+            if abs(A[i][j]) > abs(A[i][main_index]):
                 main_index = j
-        main_element = A[i][main_element]
+        main_element = A[i][main_index]
 
+        print(main_element)
         for j in range(i+1, len(A)):
             pass  # Do stuff in this column
 
@@ -39,8 +40,12 @@ def det(A: np.array):
 
 
 if __name__ == "__main__":
-    a = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 10]])
-    print(a[2])
-    print(a.shape)
-    print(det(a))
-    print()
+    a = np.array([[1, 2, 3],
+                  [4, 5, 6],
+                  [7, 8, 10]])
+    # print(a[2])
+    # print(a.shape)
+    # print(det(a))
+    # # print()
+    # gauss(a, [0, 0, 0])
+    print(len(a))
