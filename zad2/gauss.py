@@ -15,7 +15,7 @@ def gauss(A: np.array, b: np.array):
         main_element = A[i][main_element]
 
         for j in range(i+1, len(A)):
-            pass # Do stuff in this column
+            pass  # Do stuff in this column
 
 
 def det(A: np.array):
