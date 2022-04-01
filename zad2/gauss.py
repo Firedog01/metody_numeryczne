@@ -1,4 +1,5 @@
 import numpy as np
+from util import *
 
 
 def gauss(A: np.array, b: np.array):

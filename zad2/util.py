@@ -8,6 +8,8 @@ def get_files():
     return os.listdir(files_dir)
 
 
-def get_matrix(file: str):
-    return np.genfromtxt("files\\" + file, delimiter=",")
-
+def get_matrices(file: str):
+    concated = np.genfromtxt("files\\" + file, delimiter=",")
+    height = len(concated)
+    splited = np.array_split(concated, [height], axis=1)
+    return tuple(splited)

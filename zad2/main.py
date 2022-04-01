@@ -1,8 +1,19 @@
 import util
+from jordan import jordan
+
+
+def user_input():
+    files = util.get_files()
+    for idx, file in enumerate(files):
+        print(idx, file)
+    chosen_idx = input("enter number of chosen file: ")
+    return util.get_matrices(files[int(chosen_idx)])
 
 
 if __name__ == '__main__':
-    files = util.get_files()
-    print(files)
-    matrix = util.get_matrix(files[0])
-    print(matrix)
+    A, b = user_input()
+    print("A:", A)
+    print("b:", b)
+    x = jordan(A, b)
+    print("x:", x)
+
