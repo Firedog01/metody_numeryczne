@@ -13,3 +13,14 @@ def get_matrices(file: str):
     height = len(concated)
     splited = np.array_split(concated, [height], axis=1)
     return tuple(splited)
+
+
+def swap_pos(lst, a, b):
+    lst[a], lst[b] = lst[b], lst[a]
+    return lst
+
+
+def almost_range(i, k, n):
+    ret = [*range(i, n)]
+    ret.remove(k)
+    return ret
