@@ -64,6 +64,22 @@ def jordan2(n, a, x):
         print('X%d = %0.2f' % (i, x[i]), end='\t')
 
 
+def jordan3(a, b):
+    n = len(b)
+    print(A, b)
+    for k in range(0, n):
+        akk = A[k][k]
+        for j in range(k, n):
+            a[k][j] /= akk
+        b[k] /= akk
+        for i in almost_range(0, k, n):
+            aik = a[i][k] # cache a(k-1)[i][k]
+            for j in range(k, n):
+                a[i][j] -= a[k][j] * aik # a[k][j] = a(k-1)[k][j] / a(k-1)[k][k]
+            b[i] -= b[k] * aik
+        print(A, b)
+    return b
+
 if __name__ == "__main__":
     A = [[3, 2, 1],
          [3, 5, 2],
@@ -72,9 +88,6 @@ if __name__ == "__main__":
     a = [[3, 2, 1, 12],
          [3, 5, 2 , 33],
          [1, 7, 1, 8]]
-
-    jordan2(3, a, x)
-
-    print(jordan(A, x))
+    jordan3(A, x)
 
 
