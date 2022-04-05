@@ -56,4 +56,5 @@ def jordan(a, b, verbose=False):
             print("Dla k =", k, ":")
             print("A:\n", np.array(a))
             print("b:", b)
+    b = [round(i, 10) for i in b]
     return b

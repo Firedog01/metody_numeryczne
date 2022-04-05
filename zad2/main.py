@@ -11,12 +11,13 @@ def user_input():
 
 
 if __name__ == '__main__':
-    A, b = user_input()
-    print("A:", A)
-    print("b:", b)
-    A = A.tolist()
-    b = b.tolist()
-    for i in range(0, len(b)):
-        b[i] = b[i][0]
-    x = jordan(A, b)
-    print("Wynik:", x)
+    while True:
+        A, b = user_input()
+        print("A:", A)
+        print("b:", b)
+        A = A.tolist()
+        b = b.tolist()
+        for i in range(0, len(b)):
+            b[i] = b[i][0]
+        x = jordan(A, b)
+        print("Wynik:", x)

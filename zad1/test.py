@@ -62,7 +62,7 @@ if __name__ == '__main__':
     # Bi?
     # test_block("x^3-x^2-2x+1", -2, 0) # Sprawko
     # Bi!!!
-    # test_block("x^3-x^2-2x+1", -200, 0) # Sprawko
+    test_block("x^3-x^2-2x+1", -100, 0) # Sprawko
     # Falsi
     # test_block("0.1x^3+x^2+2x", -3, -2)
     # Falsi
@@ -126,9 +126,9 @@ if __name__ == '__main__':
 
     # Wykładnicze
     # Bi
-    test_block("2^x-1", -1000, 5)
+    # test_block("2^x-1", -1000, 5)
     # test_block("2^x-1", -2, 1)
     # test_block("2^x-1", -1, 10)
     # Falsi
-    test_block("2^x-1", -1000, 1)
+    # test_block("2^x-1", -1000, 1)
     pass
