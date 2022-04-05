@@ -10,8 +10,13 @@ def user_input():
     return util.get_matrices(files[int(chosen_idx)])
 
 
+# TODO: list zamiast np.array
 if __name__ == '__main__':
     A, b = user_input()
+    A = A.tolist()
+    b = b.tolist()
+    for i in range(0, len(b)):
+        b[i] = b[i][0]
     print("A:", A)
     print("b:", b)
     x = jordan(A, b)

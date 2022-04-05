@@ -19,8 +19,11 @@ def is_nieoznaczony(a, b, k):
         lst.append(tuple(a[i] + [b[i]]))
     for i in range(k, n):
         for j in range(i+1, n):
-            div_row = [lst[i][p]/lst[j][p] for p in range(k, n+1)]
-            if len(set(div_row)) <= 1:
+            div_row = []
+            for p in range(k, n+1):
+                if lst[j][p] != 0:
+                    div_row.append(lst[i][p]/lst[j][p])
+            if len(div_row) > 2 and len(set(div_row)) <= 1:
                 print("Duplicate!")
                 return True
     return False
@@ -35,8 +38,11 @@ def is_inconsistent(a, b, k):
 
     for i in range(k, n):
         for j in range(i+1, n):
-            div_row = [lst[i][p]/lst[j][p] for p in range(k, n+1)]
-            if len(set(div_row[:-1])) <= 1 and div_row[0] != div_row[-1]:
+            div_row = []
+            for p in range(k, n+1):
+                if lst[j][p] != 0:
+                    div_row.append(lst[i][p]/lst[j][p])
+            if len(div_row) > 2 and len(set(div_row[:-1])) <= 1 and div_row[0] != div_row[-1]:
                 print("Inconsistance!")
                 return True
 
@@ -46,14 +52,14 @@ def is_inconsistent(a, b, k):
 def jordan(a, b):
     n = len(b)
     for k in range(0, n):
-        if is_nieoznaczony(a, b, k):
-            return "Układ nieoznaczony!"
-        if is_inconsistent(a, b, k):
-            return "Układ sprzeczny!"
         print(k)
         print(a, b)
         a, b = find_main_elem(a, b, k)
         print(a, b)
+        if is_nieoznaczony(a, b, k):
+            return "Układ nieoznaczony!"
+        if is_inconsistent(a, b, k):
+            return "Układ sprzeczny!"
         akk = a[k][k]
         for j in range(k, n):
             a[k][j] /= akk
@@ -68,8 +74,8 @@ def jordan(a, b):
 
 
 if __name__ == "__main__":
-    a = [[1, 1, 1],
-         [1, 1, 1],
-         [0.9, 0.9, 3.6]]
-    b = [0, 11, 13.5]
-    print("Wynik: ", jordan(a, b))
+    A = [[0, 0, 1],
+         [1, 0, 0],
+         [0, 1, 0]]
+    B = [3, 7, 5]
+    print("Wynik: ", jordan(A, B))
