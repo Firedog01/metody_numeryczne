@@ -2,7 +2,6 @@
 # Michael Jordan
 from util import *
 
-
 def find_main_elem(a, b, j):
     n = len(b)
     for i in range(j, n):
@@ -12,45 +11,44 @@ def find_main_elem(a, b, j):
     return a, b
 
 
-# TODO: sensownie nazwać xd
-def is_nieoznaczony(a, b):
+# TODO: wip, nazwa xd
+def is_nieoznaczony(a, b, k):
     lst = []
-    for i in range(0, len(b)):
+    n = len(b)
+    for i in range(0, n):
         lst.append(tuple(a[i] + [b[i]]))
-
-    # Does matrix have duplicate rows?
-    if len(set(lst)) != len(lst):
-        print("safd")
-        return True
-
-    # Does matrix have 0 = 0 rows?
-    for row in lst:
-        result = all(element == row[0] for element in row)
-        if result:
-            return True
+    for i in range(k, n):
+        for j in range(i+1, n):
+            div_row = [lst[i][p]/lst[j][p] for p in range(k, n+1)]
+            if len(set(div_row)) <= 1:
+                print("Duplicate!")
+                return True
     return False
 
 
-# TODO: nie wykrywa dla e)
-def is_inconsistent(a, b):
+# TODO: wip
+def is_inconsistent(a, b, k):
+    n = len(b)
     lst = []
-    for i in range(0, len(b)):
+    for i in range(0, n):
         lst.append(tuple(a[i] + [b[i]]))
 
-    # Does matrix have 0 = not 0 rows?
-    for i in range(0, len(b)):
-        result = all(element == a[i][0] for element in a[i])
-        if result and b[i] != 0:
-            return True
+    for i in range(k, n):
+        for j in range(i+1, n):
+            div_row = [lst[i][p]/lst[j][p] for p in range(k, n+1)]
+            if len(set(div_row[:-1])) <= 1 and div_row[0] != div_row[-1]:
+                print("Inconsistance!")
+                return True
+
     return False
 
 
 def jordan(a, b):
     n = len(b)
     for k in range(0, n):
-        if is_nieoznaczony(a, b):
+        if is_nieoznaczony(a, b, k):
             return "Układ nieoznaczony!"
-        if is_inconsistent(a, b):
+        if is_inconsistent(a, b, k):
             return "Układ sprzeczny!"
         print(k)
         print(a, b)
@@ -70,9 +68,8 @@ def jordan(a, b):
 
 
 if __name__ == "__main__":
-    a = [[3, 2, 1, -1],
-         [5, -1, 1, 2],
-         [1, -1, 1, 2],
-         [7, 8, 1, -7]]
-    b = [0, -4, 4, 6]
+    a = [[1, 1, 1],
+         [1, 1, 1],
+         [0.9, 0.9, 3.6]]
+    b = [0, 11, 13.5]
     print("Wynik: ", jordan(a, b))
