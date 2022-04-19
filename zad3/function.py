@@ -4,7 +4,7 @@ import re
 import numpy as np
 
 
-class Function:
+class function:
     funcs = list()
 
     # Divide string into list and transform into lambdas

@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from function import Function
+from function import function
 
 
 
@@ -80,7 +80,7 @@ if __name__ == "__main__":
             print("Zly parametr!")
 
         if f != "":
-            fn = Function(f)
+            fn = function(f)
 
             del fn
 
