@@ -79,7 +79,7 @@ if __name__ == "__main__":
         else:
             print("Zly parametr!")
 
-        if f != "" and algo != "":
+        if f != "":
             fn = Function(f)
 
             del fn

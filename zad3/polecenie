@@ -1,9 +1,8 @@
 Celem zadania trzeciego jest zaimplementowanie jednej z metod interpolacji:
 
-Wariant 6: Newtona na węzłach Czebyszewa (slajd 30,
+Wariant 6: Newtona na węzłach Czebyszewa (slajd 30, 39)
 
-Program ma umożliwiać wczytanie stablicowanych wartości funkcji oraz umożliwiać wybór jednej z kilku funkcji:
-liniowa, |x|, wielomian, trygonometryczna i ich złożenia.
+Program ma umożliwiać wczytanie stablicowanych wartości funkcji oraz umożliwiać wybór jednej z kilku funkcji: liniowa, |x|, wielomian, trygonometryczna i ich złożenia.
 Wartości wielomianów *interpolowanych* należy obliczać używając schematu Hornera.
 Wartości wielomianów *interpolacyjnych* należy obliczać bezpośrednio, skorzystanie ze schematu Hornera nie jest bowiem możliwe
     bez uprzedniego przekształcenia wielomianu interpolacyjnego do postaci kanonicznej.
@@ -13,5 +12,6 @@ Wartości w węzłach interpolacyjnych wyliczane są przy użyciu funkcji wybran
 Program ma rysować wykres funkcji oryginalnej i wielomianu interpolującego oraz zaznaczać węzły interpolacji (węzły interpolacji powinny
     pokrywać się z punktami przecięcia wykresów funkcji i wielomianu interpolacyjnego - jeśli jest inaczej, to jest to wyraźna oznaka błędu w programie).
 
-W sprawozdaniu należy zamieścić przykładowe wykresy. Zbadać w jaki sposób zmiana liczby węzłów wpływa na dokładność
-interpolacji. Ile węzłów potrzeba do interpolacji wielomianu N-tego stopnia?
+W sprawozdaniu należy zamieścić przykładowe wykresy.
+Zbadać w jaki sposób zmiana liczby węzłów wpływa na dokładność interpolacji.
+Ile węzłów potrzeba do interpolacji wielomianu N-tego stopnia?
