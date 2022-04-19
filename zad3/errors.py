@@ -1,4 +1,6 @@
-from newton import *
+from function import function
+from newton import newton
+import numpy as np
 
 
 def errors(X: list, Y: list = None, fun: function = None):

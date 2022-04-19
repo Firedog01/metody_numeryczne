@@ -1,6 +1,5 @@
 # Newton interpolation
 from function import function
-from чебышёв import чебышёв as czebyszew
 
 
 def newton(x: float, X: list, Y: list = None, fun: function = None):
@@ -46,4 +45,3 @@ if __name__ == "__main__":
 
     f = function("x^3+3x")
     print(diff_quot([1, 2], fun=f))
-    czebyszew(None, None, None)
