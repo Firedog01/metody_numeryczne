@@ -13,13 +13,12 @@ def newton(x: float, X: list, Y: list = None, fun: function = None):
     ret = Y[0]
     for i in range(1, len(X)):
         mul = 1
-        for j in range(0, i+1):
+        for j in range(0, i):
             mul *= (x-X[j])
-        ret += diff_quot([X[j] for j in range(0, i+1)], [X[j] for j in range(0, i+1)]) * mul
+        ret += diff_quot([X[j] for j in range(0, i+1)], [Y[j] for j in range(0, i+1)]) * mul
     return ret
 
 
-# Road works ahead? Yeah, I hope it does
 def diff_quot(X: list, Y: list = None, fun: function = None):
     if Y is not None:
         diffs = Y
@@ -31,9 +30,7 @@ def diff_quot(X: list, Y: list = None, fun: function = None):
     new_diffs = []
     xstep = 1
     while len(diffs) > 1:
-        # print(xstep, diffs)
         for i in range(0, len(diffs) - 1):
-            # print(f"i: {i}, xstep: {xstep}, len(diffs): {len(diffs)}, len(X): {len(X)}")
             new_diffs.append((diffs[i+1] - diffs[i]) / (X[i+xstep] - X[i]))
         diffs = new_diffs
         new_diffs = []
@@ -42,6 +39,5 @@ def diff_quot(X: list, Y: list = None, fun: function = None):
 
 
 if __name__ == "__main__":
-
     f = function("x^3+3x")
     print(diff_quot([1, 2], fun=f))

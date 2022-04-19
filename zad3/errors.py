@@ -3,18 +3,13 @@ from newton import newton
 import numpy as np
 
 
-def errors(X: list, Y: list = None, fun: function = None):
-    if Y is not None:
-        pass
-    elif fun is not None:
-        Y = [fun.value(x) for x in X]
-    else:
-        raise Exception("errors needs 2 args")
-
+def errors(p: float, q: float, X: list, fun: function):
+    step = 0.001
     errs = []
-    for x in X:
-        mul = 1
-        for xi in X:
-            mul *= (x-xi)
-        errs.append(diff_quot(X, Y) * mul)
+    for i in np.arange(p, q, step):
+        errs.append(error(i, X, fun))
     return sum(errs)/len(errs)
+
+
+def error(x: float, X: list, fun: function):
+    return abs(fun.value(x) - newton(x, X, fun=fun))

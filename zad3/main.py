@@ -3,7 +3,7 @@ import numpy as np
 from function import function
 from newton import newton
 from errors import errors
-from чебышёв import *
+from czybyszew import *
 
 
 def print_help():
@@ -48,8 +48,7 @@ def plot(fun: function, range_: (float, float), X: list):
     plt.plot(x_points_g, y_points_g, zorder=-1, color="blue")
 
     # Scatter interpolation nodes
-    for x in X:
-        plt.scatter(x, fun.value(x), color='red', zorder=10)
+    plt.scatter(X, [fun.value(x) for x in X], color='blue', zorder=10)
     plt.show()
 
 
@@ -92,9 +91,8 @@ if __name__ == "__main__":
             print("Zly parametr!")
 
         if f != "":
-            # o = int(input("Podaj ilość węzłów: "))
-            o = 10
-            nodes = чебышёв(o, p, q)
+            o = int(input("Podaj ilość węzłów: "))
+            nodes = czybyszew(o, p, q)
             fn = function(f)
             plot(fn, r, nodes)
             print("błąd: %.4f" % errors(p, q, nodes, fun=fn))
