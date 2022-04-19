@@ -70,6 +70,7 @@ def make_list(s):
     s = prepend_1(s, "tan")
     s = prepend_1(s, "e")
     s = prepend_1(s, "pi")
+    s = prepend_1(s, "abs")
     # x -> 1x, -x -> -1x
     # same for functions and constants
 
@@ -125,6 +126,8 @@ def make_lambda(fn: str):
                     return lambda x: a * np.pi ** x
                 elif parts[0] == "e":
                     return lambda x: a * np.e ** x
+                elif parts[0] == "abs":
+                    return lambda x: a * np.abs(x) ** x
                 elif parts[0] == "x":  # ???
                     return lambda x: a * x ** x
                 elif parts[0] == "":
@@ -141,6 +144,8 @@ def make_lambda(fn: str):
                     return lambda x: a * np.pi ** b
                 elif parts[0] == "e":
                     return lambda x: a * np.e ** b
+                elif parts[0] == "abs":
+                    return lambda x: a * np.abs(x) ** b
                 elif parts[0] == "x":  # ???
                     return lambda x: a * x ** b
         else:
@@ -154,6 +159,7 @@ def make_lambda(fn: str):
                 return lambda x: a * np.pi
             elif parts[0] == "e":
                 return lambda x: a * np.e
+            elif parts[0] == "abs":
+                return lambda x: a * np.abs(x)
             elif parts[0] == "x":  # ???
                 return lambda x: a * x
-
