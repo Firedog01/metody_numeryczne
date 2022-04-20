@@ -19,5 +19,5 @@ if __name__ == '__main__':
         b = b.tolist()
         for i in range(0, len(b)):
             b[i] = b[i][0]
-        x = jordan(A, b)
+        x = jordan(A, b, verbose=True)
         print("Wynik:", x, "\n--------------------")

@@ -1,5 +1,3 @@
-# Who is your president?
-# Michael Jordan
 from util import *
 
 
