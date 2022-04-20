@@ -1,0 +1,2 @@
+wariant 2.
+Wariant 2: całkowanie na przedziale (−∞,+∞) z wagą e−x2 (wielomiany Hermite'a) całek postaci ∫+∞−∞e^(−x^2)f(x)dx
