@@ -15,7 +15,8 @@ def newton(x: float, X: list, Y: list = None, fun: function = None):
         mul = 1
         for j in range(0, i):
             mul *= (x-X[j])
-        ret += diff_quot([X[j] for j in range(0, i+1)], [Y[j] for j in range(0, i+1)]) * mul
+        ret += diff_quot([X[j] for j in range(0, i+1)],
+                         [Y[j] for j in range(0, i+1)]) * mul
     return ret
 
 

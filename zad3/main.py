@@ -3,7 +3,7 @@ import numpy as np
 from function import function
 from newton import newton
 from errors import errors
-from czybyszew import *
+from czebyszew import *
 
 
 def print_help():
@@ -63,7 +63,6 @@ if __name__ == "__main__":
         ("sin + cos", (-4, 4)),                                             # trygonometryczna
         ("4sin^3 + sin^2 + sin - 1", (-4, 6)),                              # wielomian i trygonometryczna
         ("sin + cos", (-20, 20)),                                           # trygonometryczna, długi przedział
-
     ]
     i = ""
     algo = ""
@@ -92,7 +91,7 @@ if __name__ == "__main__":
 
         if f != "":
             o = int(input("Podaj ilość węzłów: "))
-            nodes = czybyszew(o, p, q)
+            nodes = czebyszew(o, p, q)
             fn = function(f)
             plot(fn, r, nodes)
             print("błąd: %.4f" % errors(p, q, nodes, fun=fn))
