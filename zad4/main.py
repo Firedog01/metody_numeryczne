@@ -1,5 +1,4 @@
 import numpy as np
-
 import functions
 from gauss_hermite import *
 from newton_cotes import *
@@ -13,5 +12,7 @@ if __name__ == "__main__":
     idx = int(input("select function: "))
     fn = fns[idx][1]
 
-    print("Solution:", newton_cotes(-10, 10, fn, 0.001, lambda x: 1))
+    print("Solution:", newton_cotes(-10, 10, fn, 0.000001, functions.e_to_min_x2))
     #print("Solution:", gauss_hermite(fn, 3))
+    #print("Solution:", newton_cotes_inf(0.001, 0.000001, fn, 0.000000001, lambda x: 1))
+    #print("Solution:", newton_cotes_single(-10, 10, fn, 1000000, functions.e_to_min_x2))
