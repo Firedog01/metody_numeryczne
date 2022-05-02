@@ -2,7 +2,7 @@
 # from function import function
 
 
-def newton_cortes(a: float, b: float, func, precision: float, weight_func):
+def newton_cotes(a: float, b: float, func, precision: float, weight_func):
     old_ret = 0
     ret = 0
     N = 2
