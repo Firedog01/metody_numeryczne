@@ -8,7 +8,7 @@ class function:
     funcs = list()
 
     # Divide string into list and transform into lambdas
-    def __init__(self, s: str):
+    def __init__(self, s: str)
         # sorted list where:
         #   3x^3 -> fn_list[3] == "3x"
         #   2 -> fn_list[0] == "2"
