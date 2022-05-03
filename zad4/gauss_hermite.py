@@ -19,11 +19,10 @@ A = [
 ]
 
 
-def gauss_hermite(fun, n: int):
-    if not 2 <= n <= 5:
+def gauss_hermite(fun, nodes: int):
+    if not 2 <= nodes <= 5:
         raise Exception("Node count out of range!")
     ret = 0
-    for i in range(0, n):
-        print(A[n-2][i] * fun(X[n-2][i]))
-        ret += A[n-2][i] * fun(X[n-2][i])
+    for i in range(0, nodes):
+        ret += A[nodes - 2][i] * fun(X[nodes - 2][i])
     return ret
