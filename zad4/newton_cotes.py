@@ -51,3 +51,9 @@ def newton_cotes_single(a: float, b: float, func, N: int):
         else:
             ret += 4 * y
     return ret * h / 3
+
+
+def weight_function(x: float):
+    # +-inf: 1.77245385090551602729816748
+    # +-10:  1.77245385090551602729816748
+    return exp(-(x * x))

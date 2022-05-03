@@ -1,10 +1,12 @@
 import numpy as np
 
 
-def e_to_min_x_2(x: float):
-    # +-inf: 1.77245385090551602729816748
-    # +-10:  1.77245385090551602729816748
-    return np.exp(-(x * x))
+def mod_x(x: float):
+    return abs(x)
+
+
+def one(x: float):
+    return 1
 
 
 def p_3x2_2x_min_13(x: float):
@@ -24,7 +26,6 @@ def sin2_min_cos2(x: float):
     # +-inf: -0.6520493321732921830591586
     # +-10:  -0.6520493321732921830591586
     return np.sin(x) ** 2 - np.cos(x) ** 2
-
 
 
 def sin_to_2_cos(x: float):

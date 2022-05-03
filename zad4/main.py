@@ -13,8 +13,8 @@ if __name__ == "__main__":
             print(f"{idx}. {f[0]}")
         idx = int(input("select function: "))
         fn = fns[idx][1]
-        print("Newton-Cortes:", newton_cotes_inf(1, fn, precision=0.0001))
-        print("Gauss-Hermite, 2 nodes:", gauss_hermite(fn, nodes=2))
-        print("Gauss-Hermite, 3 nodes:", gauss_hermite(fn, nodes=3))
-        print("Gauss-Hermite, 4 nodes:", gauss_hermite(fn, nodes=4))
-        print("Gauss-Hermite, 5 nodes:", gauss_hermite(fn, nodes=5))
+        print("Newton-Cortes:", round(newton_cotes_inf(1, fn, precision=0.0001), 6))
+        print("Gauss-Hermite, 2 nodes:", round(gauss_hermite(fn, nodes=2), 6))
+        print("Gauss-Hermite, 3 nodes:", round(gauss_hermite(fn, nodes=3), 6))
+        print("Gauss-Hermite, 4 nodes:", round(gauss_hermite(fn, nodes=4), 6))
+        print("Gauss-Hermite, 5 nodes:", round(gauss_hermite(fn, nodes=5), 6))
