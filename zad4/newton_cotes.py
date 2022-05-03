@@ -1,5 +1,5 @@
 # złożoną kwadraturę Newtona-Cotesa opartą na trzech węzłach (wzór Simpsona)
-from functions import e_to_min_x_2 as weight_function
+from numpy import exp
 
 
 def newton_cotes_inf(a: float, func, precision: float):

@@ -26,7 +26,16 @@ def sin2_min_cos2(x: float):
     return np.sin(x) ** 2 - np.cos(x) ** 2
 
 
+
+def sin_to_2_cos(x: float):
+    return np.sin(x) * np.sin(x) + np.cos(x)
+
+
 def x(x: float):
     # +-inf: 0
     # +-10: 0
     return x
+
+
+def two_x_5(x: float):
+    return 2 * x + 5
