@@ -26,6 +26,20 @@ def newton_cotes_inf(a: float, func, precision: float):
     return ret
 
 
+def newton_cotes_to_inf(a: float, func, precision: float):
+    # zakładamy, że a = ro
+    ret = 0
+    value = 0
+
+    # (0, inf)
+    p = 0
+    while abs(value) > precision or p == 0:
+        value = newton_cotes(p, p + a, func, precision)
+        # print(f"{value=}")
+        ret += value
+        p += a
+
+
 def newton_cotes(a: float, b: float, func, precision: float):
     old_ret = 0.0
     ret = 0.0
@@ -34,7 +48,7 @@ def newton_cotes(a: float, b: float, func, precision: float):
         old_ret = ret
         ret = newton_cotes_single(a, b, func, N)
         # print(f"{N=} {ret=} {old_ret=}")
-        N *= 2
+        N *= 16
     return ret
 
 

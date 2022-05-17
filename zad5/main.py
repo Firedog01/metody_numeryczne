@@ -1,8 +1,11 @@
+import math
+
 import matplotlib.pyplot as plt
 import numpy as np
 
-from chebyshev_aprox import chebyshev_aprox
+from chebyshev_aprox import chebyshev_aprox, chebyshev_aprox_series
 from function import function
+from newton_cotes import newton_cotes_to_inf
 
 
 def print_help():
@@ -15,7 +18,7 @@ def print_help():
 
 
 def plot(f, range_: (float, float), m, prec):
-    plot_precision = 10.0
+    plot_precision = 50.0
     fig = plt.figure()
     a, b = range_
 
@@ -29,11 +32,16 @@ def plot(f, range_: (float, float), m, prec):
         x_points_f.append(x)
         y_points_f.append(f(x))
 
+    err_sum = 0
+
     # Draw aproximated function graph
     step = (range_[1] - range_[0]) / plot_precision
-    for x in np.arange(range_[0], range_[1], step):
-        x_points_g.append(x)
-        y_points_g.append(chebyshev_aprox(x, a, b, f, m, prec))
+    X, Y, avg_err = chebyshev_aprox_series(a * 2, b * 2, 100, f, m, prec)
+    for i in range(len(X)):
+        x_points_g.append(X[i])
+        y_points_g.append(Y[i])
+
+    print("Średni błąd: ", avg_err)
 
     # move axis
     ax = fig.add_subplot(1, 1, 1)
@@ -90,6 +98,6 @@ if __name__ == "__main__":
         if f != "":
             m = int(input("Podaj ilość węzłów: "))
             fn = function(f).value
-            prec = float(input("Podaj precyzję: "))
+            prec = float(input("Podaj dokładność całkowania: "))
             plot(fn, r, m, prec)
             del fn

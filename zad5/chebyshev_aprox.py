@@ -1,6 +1,5 @@
 import math
 
-from function import *
 from newton_cotes import *
 
 
@@ -57,13 +56,13 @@ def chebyshev_polymonials(m: int):
 #         ret += ck_1 / ck_2 * g[k].value(x)
 #         print(k, ret)
 #     return ret
-def chebyshev_aprox(x: float, a: float, b: float, f, m: int, precision=0.1):
+def chebyshev_aprox(x: float, a: float, b: float, f, m: int, precision=1000):
     ret = 0
-    #x = (2 * x - a - b) / (b - a)
+    # x = (2 * x - a - b) / (b - a)
     g_list = chebyshev_polymonials(m)
     for k in range(m):
-        wfg = lambda val: 1 / math.sqrt(1.000001 - val*val) * f(val) * g_list[k].value(val)
-        ck_1 = newton_cotes(-1, 1, wfg, precision)
+        wfg = lambda val: 1 / math.sqrt(1.00000000001 - (val*val)) * f(val) * g_list[k].value(val)
+        ck_1 = newton_cotes_single(-1, 1, wfg, precision)
         if k == 0:
             ck_2 = math.pi
         else:
@@ -74,6 +73,47 @@ def chebyshev_aprox(x: float, a: float, b: float, f, m: int, precision=0.1):
     return ret
 
 
+def chebyshev_aprox_series(a: float, b: float, N: int, f, m: int, precision=0.001):
+    # Get points
+    h = (b - a) / (N - 1)
+    X = [((a + h * i) - a - b)/(b - a) for i in range(0, N)]
+
+    # Get polymonials
+    g_list = chebyshev_polymonials(m)
+
+    # Get współczynniki
+    c_list = []
+    for k in range(m):
+        wfg = lambda val: 1 / math.sqrt(1.0001 - (val*val)) * f(val) * g_list[k].value(val)
+        ck_1 = newton_cotes(-1, 1, wfg, precision)
+        if k == 0:
+            ck_2 = math.pi
+        else:
+            ck_2 = math.pi * 0.5
+        print(".")
+        c_list.append(ck_1 / ck_2)
+
+
+    # Scale back X
+    # https://www.cce.pk.edu.pl/images/skrypty/Metody_numeryczne_2 (str 9)
+    X = [0.5 * ((b - a) * x + (b + a)) for x in X]
+
+    # Calculate values
+    Y = []
+    for x in X:
+        y = 0
+        for i in range(len(g_list)):
+            y += c_list[i] * g_list[i].value(x)
+        Y.append(y)
+
+    # Calculate errors
+    err_list = []
+    for i in range(int(len(X) / 4), int(3 * len(X) / 4)):
+        err_list. append(abs(f(X[i]) - Y[i]))
+
+    avg_err = sum(err_list) / len(err_list)
+
+    return X, Y, avg_err
 
 
 if __name__ == "__main__":
