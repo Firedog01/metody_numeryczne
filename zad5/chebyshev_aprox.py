@@ -90,9 +90,9 @@ def chebyshev_aprox_series(a: float, b: float, N: int, f, m: int, precision=0.00
             ck_2 = math.pi
         else:
             ck_2 = math.pi * 0.5
-        print(".")
+        print(".", end="")
         c_list.append(ck_1 / ck_2)
-
+    print("")
 
     # Scale back X
     # https://www.cce.pk.edu.pl/images/skrypty/Metody_numeryczne_2 (str 9)
