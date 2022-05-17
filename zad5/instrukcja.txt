@@ -1,2 +1,4 @@
 liqma
 wariat 1
+
+todo: skalowanie przedziałów (na dole w wykładzie było)

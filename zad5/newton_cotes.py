@@ -43,7 +43,7 @@ def newton_cotes_single(a: float, b: float, func, N: int):
     x = [a + h * i for i in range(0, N)]
     ret = 0
     for i in range(0, N):
-        y = func(x[i]) * weight_function(x[i])
+        y = func(x[i])
         if i == 0 or i == N - 1:
             ret += y
         elif i % 2 == 0:
